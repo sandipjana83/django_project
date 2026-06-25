@@ -1,9 +1,14 @@
 {% load static tailwind_tags %}
+<<<<<<< HEAD
 
+=======
+{% load static %}
+>>>>>>> 16ac45df2a6312ff6fc1dc68a4734341f135fd68
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+<<<<<<< HEAD
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
@@ -69,5 +74,18 @@
         {% endblock %}
     </main>
 
+=======
+    <title>
+      {% block title%}
+      default value
+      {% endblock %}
+    </title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+    {% tailwind_css %}
+</head>
+<body>
+
+{% block content %}{% endblock %}
+>>>>>>> 16ac45df2a6312ff6fc1dc68a4734341f135fd68
 </body>
 </html>

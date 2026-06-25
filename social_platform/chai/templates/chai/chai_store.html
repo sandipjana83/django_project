@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block title %}
+All Stores
+{% endblock %}
+
+{% block content %}
+
+<div class="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-blue-100 py-12">
+
+    <div class="max-w-4xl mx-auto px-4">
+
+        <!-- Search Card -->
+        <div class="backdrop-blur-lg bg-white/70 border border-white/30 shadow-2xl rounded-3xl p-8">
+
+            <h1 class="text-4xl font-extrabold text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                Store Finder
+            </h1>
+
+            <p class="text-center text-gray-500 mb-8">
+                Search stores by location and discover available branches.
+            </p>
+
+            <form method="POST" class="space-y-6">
+                {% csrf_token %}
+
+                <div class="space-y-4">
+                    {{ form.as_p }}
+                </div>
+
+                <button
+                    type="submit"
+                    class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-xl font-semibold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition duration-300"
+                >
+                    🔍 Search Store
+                </button>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        {% if stores %}
+        <div class="mt-12">
+
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">
+                Available Stores
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+
+                {% for store in stores %}
+                <div
+                    class="group bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-2xl hover:-translate-y-2 transition duration-300"
+                >
+
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-blue-600">
+                            {{ store.name }}
+                        </h3>
+
+                        <span class="bg-green-100 text-green-700 text-sm px-3 py-1 rounded-full">
+                            Open
+                        </span>
+                    </div>
+
+                    <div class="mt-4 flex items-center gap-2 text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="w-5 h-5 text-red-500"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+
+                        <span>{{ store.location }}</span>
+                    </div>
+
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
