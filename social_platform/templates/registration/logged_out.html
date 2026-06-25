@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Logged Out
+{% endblock %}
+
+{% block content %}
+
+<div class="min-h-[85vh] flex items-center justify-center px-4 py-10">
+
+    <div class="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-8 text-center">
+
+        <!-- Icon -->
+        <div class="flex justify-center">
+            <div class="w-20 h-20 rounded-full bg-cyan-500/20 flex items-center justify-center text-5xl">
+                👋
+            </div>
+        </div>
+
+        <!-- Heading -->
+        <h1 class="mt-6 text-4xl font-bold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            Logged Out
+        </h1>
+
+        <p class="mt-4 text-gray-400">
+            You have successfully logged out of your account.
+            <br>
+            We hope to see you again soon!
+        </p>
+
+        <!-- Login Button -->
+        <a href="{% url 'login' %}"
+           class="inline-block mt-8 px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-pink-500 text-white font-semibold shadow-lg hover:shadow-cyan-500/40 transition duration-300">
+            🔑 Login Again
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

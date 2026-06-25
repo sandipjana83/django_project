@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Delete Tweet
+{% endblock %}
+
+{% block content %}
+
+<div class="min-h-[80vh] flex items-center justify-center px-4">
+
+    <div class="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-8">
+
+        <!-- Warning Icon -->
+        <div class="flex justify-center">
+            <div class="w-20 h-20 rounded-full bg-red-500/20 flex items-center justify-center text-5xl">
+                ⚠️
+            </div>
+        </div>
+
+        <!-- Heading -->
+        <h2 class="text-3xl font-bold text-center text-white mt-6">
+            Delete Tweet?
+        </h2>
+
+        <p class="text-center text-gray-400 mt-3">
+            This action cannot be undone.
+            <br>
+            Are you sure you want to permanently delete this tweet?
+        </p>
+
+        <!-- Buttons -->
+        <form method="POST" class="mt-8">
+            {% csrf_token %}
+
+            <div class="flex justify-center gap-4">
+
+                <a href="{% url 'tweet_list' %}"
+                   class="px-6 py-3 rounded-xl border border-gray-500 text-gray-300 hover:bg-gray-700 transition duration-300">
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="px-6 py-3 rounded-xl bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-semibold shadow-lg hover:shadow-red-500/40 transition duration-300">
+                    🗑 Delete
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

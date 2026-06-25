@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Tweet List
+{% endblock %}
+
+{% block content %}
+
+<div class="max-w-7xl mx-auto px-6 py-10">
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row justify-between items-center mb-10">
+        <div>
+            <h1 class="text-5xl font-extrabold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Social Feed
+            </h1>
+
+            <p class="text-gray-400 mt-2">
+                Share your moments with everyone.
+            </p>
+        </div>
+
+        <a href="{% url 'tweet_create' %}"
+           class="mt-5 md:mt-0 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 hover:scale-105 transition duration-300 font-semibold shadow-lg">
+            + Create Tweet
+        </a>
+    </div>
+
+    <!-- Cards -->
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        {% for tweet in tweets %}
+
+        <div class="group bg-white/10 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/10 shadow-xl hover:shadow-cyan-500/20 transition duration-500 hover:-translate-y-2">
+
+            <!-- Image -->
+
+           <div class="overflow-hidden rounded-t-2xl h-56">
+    <img src="{{ tweet.photo.url }}"
+         class="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+         alt="Tweet Image">
+</div>
+            <!-- Content -->
+
+            <div class="p-6">
+
+                <!-- User -->
+
+                <div class="flex items-center gap-3 mb-4">
+
+
+
+                    <div>
+                        <h3 class="font-bold text-lg">
+                            {{ tweet.user.username }}
+                        </h3>
+
+                        <p class="text-gray-400 text-sm">
+                            Posted just now
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Tweet -->
+
+                <p class="text-gray-300 leading-relaxed mb-5">
+                    {{ tweet.text }}
+                </p>
+
+                <!-- Divider -->
+
+                <div class="border-t border-white/10 pt-4">
+
+                    <div class="flex justify-between items-center">
+
+                        <div class="flex gap-6 text-xl">
+
+                            <button class="hover:text-pink-500 transition">
+                                ❤️
+                            </button>
+
+                            <button class="hover:text-cyan-400 transition">
+                                💬
+                            </button>
+
+                            <button class="hover:text-green-400 transition">
+                                🔖
+                            </button>
+
+                        </div>
+
+                        {% if tweet.user == request.user %}
+
+                        <div class="flex gap-2">
+
+                            <a href="{% url 'tweet_edit' tweet.id %}"
+                               class="px-4 py-2 rounded-lg bg-blue-500 hover:bg-grey-400 text-black font-semibold transition">
+                                Edit
+                            </a>
+
+                            <a href="{% url 'tweet_del' tweet.id %}"
+                               class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 transition">
+                                Delete
+                            </a>
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-span-full text-center py-20">
+
+            <h2 class="text-3xl font-bold text-gray-300">
+                No Tweets Yet
+            </h2>
+
+            <p class="text-gray-500 mt-3">
+                Be the first person to share something.
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
