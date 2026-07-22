@@ -4,8 +4,9 @@ from .forms import TweetForms,RegistrationForm
 from django.shortcuts import get_object_or_404,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,logout
-
-# Create your views here.
+from .utils import send_email_to_client
+from django.contrib.auth.forms import PasswordResetForm
+#
 def index(request):
     return render(request,'index.html')
 
@@ -49,22 +50,32 @@ def tweet_del(request,tweet_id):
     return render(request, 'del_confirm.html', {'tweet':tweet})
 
 def register(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+    if request.method == "POST":
+        form = RegistrationForm(request.POST, request.FILES)
+
         if form.is_valid():
+
             user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password1'])
+            user.email = form.cleaned_data["email"]
+            user.set_password(form.cleaned_data["password1"])
             user.save()
+
             Profile.objects.create(
                 user=user,
-                profile_pic=form.cleaned_data["profile_pic"]
+                profile_pic=form.cleaned_data.get("profile_pic")
             )
+
             login(request, user)
-            return redirect('tweet_list')
+            return redirect("tweet_list")
+
     else:
         form = RegistrationForm()
-    return render(request,'registration/register.html',{'form':form})
 
+    return render(
+        request,
+        "registration/register.html",
+        {"form": form}
+    )
 @login_required
 def profile(request):
     tweets = Tweet.objects.filter(user=request.user).order_by("-created_at")
@@ -75,6 +86,14 @@ def profile(request):
     }
 
     return render(request, "registration/profile.html", context)
+
+def sent_email(request):
+    send_email_to_client(
+        subject="Password Reset",
+        message=f'{request.user.username} .you can reset your password!',
+        recipient_email=request.user.email,
+    )
+    return redirect("tweet_list")
 
 def logged_out(request):
     logout(request)
