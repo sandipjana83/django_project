@@ -13,7 +13,11 @@
         {% endblock %}
     </title>
 
+<<<<<<< HEAD
     
+=======
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+>>>>>>> cf35ad6f5963e5493405be934416769a15ded7a0
     {% tailwind_css %}
 </head>
 <script>
@@ -35,6 +39,7 @@ function confirmLogout() {
             </a>
 
             <div class="flex items-center gap-4">
+<<<<<<< HEAD
 
                 <a href="{% url 'tweet_list' %}"
                    class="px-4 py-2 hover:text-cyan-400">
@@ -60,6 +65,31 @@ function confirmLogout() {
 
                 {% else %}
 
+=======
+
+                <a href="{% url 'tweet_list' %}"
+                   class="px-4 py-2 hover:text-cyan-400">
+                    🏠 Home
+                </a>
+
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}"
+                   class="px-4 py-2 hover:text-purple-400">
+                    👤 Profile
+                </a>
+
+                <form method="post" action="{% url 'logged_out' %}">
+                    {% csrf_token %}
+                    <button
+                        type="submit"
+                        class="px-5 py-2 rounded-xl bg-red-600 hover:bg-red-500">
+                        Logout
+                    </button>
+                </form>
+
+                {% else %}
+
+>>>>>>> cf35ad6f5963e5493405be934416769a15ded7a0
                 <a href="{% url 'login' %}"
                    class="px-5 py-2 border border-cyan-500 rounded-xl">
                     Sign In

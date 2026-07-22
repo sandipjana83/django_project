@@ -6,7 +6,10 @@ from django.contrib.auth.urls import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('tweet/', include('tweet.urls')),
+=======
+>>>>>>> cf35ad6f5963e5493405be934416769a15ded7a0
     path('', include('tweet.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 
